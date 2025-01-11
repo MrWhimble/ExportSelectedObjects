@@ -119,9 +119,10 @@ class OBJECT_OT_mrwhimble_export_selected(bpy.types.Operator):
     def execute(self, context):
         original_transforms = mrwhimble_move_models_to_origin()
         #self.report({'INFO'}, "Exporting %d models to %r" % (len(bpy.context.selected_objects), self.export_path))
-        mrwhimble_export_models_fbx(self.export_path)
+        absolute_export_path=bpy.path.abspath(self.export_path)
+        mrwhimble_export_models_fbx(absolute_export_path)
         mrwhimble_move_models_to_original_positions(original_transforms)
-        self.report({'INFO'}, "Exported %d models to %r" % (len(bpy.context.selected_objects), self.export_path))
+        self.report({'INFO'}, "Exported %d models to %r" % (len(bpy.context.selected_objects), absolute_export_path))
         return {'FINISHED'}
 
 class OBJECT_PT_mrwhimble_export_selected(bpy.types.Panel):
